@@ -20,7 +20,6 @@ Window::Window(const std::string &title)
 
     _parallax.create(100);
     // _menu.create(_window, _tcpBuf, _udpBuf);
-    // _game.create(_window, *_udpSocket);
     _scene = MENU;
 
     _lostConnection = false;
@@ -45,38 +44,15 @@ void Window::event()
 {
     if (_event.type == sf::Event::Closed)
         _closeGame = true;
-    // if (_scene == GAME) {
-    //     if (_game.event(_event, *_udpSocket)) {
-    //         _scene = MENU;
-    //         std::vector<bool> direction = {1, 0, 0, 1};
-    //         _parallax.setDirection(direction);
-    //         _gameStarted = false;
-    //         _game.create(_window, *_udpSocket);
-    //         _menu.setInRoom(false, *_tcpSocket);
-    //         _udpSocket->close();
-    //     }
-    // }
-    // else if (_scene == MENU) {
+    // if (_scene == MENU) {
     //     //_parallax.event(_event);
         // _menu.event(_event, _window, _tcpEndpoint, *_tcpSocket, *_udpSocket);
     // }
 }
 
-
-void Window::switchScene()
-{
-    // if (std::strlen(_udpBuf) > 3 && std::strncmp(_udpBuf, "006", 3) == 0) {
-    //     _scene = GAME;
-    //     std::vector<bool> direction = {1, 0, 0, 0};
-    //     _parallax.setDirection(direction);
-    //     std::memset(_udpBuf, '\0', 1024);
-    // }
-}
-
 void Window::update()
 {
-    switchScene();
-    if (_scene == MENU || _scene == GAME) {
+    if (_scene == MENU) {
         _parallax.update();
         // _menu.update(_window, _udpEndpoint, *_udpSocket, _scene);
         // if (_scene == MENU) {
@@ -87,18 +63,12 @@ void Window::update()
         //     _game.startMusic();
         // }
     }
-    // if (_scene == GAME && !_gameStarted) {
-    //     _udpSocket->non_blocking(false);
-    //     _gameStarted = true;
-    //     std::thread th = _game.startThread(_udpError, _closeGame);
-    //     th.detach();
-    // }
 }
 
 void Window::draw()
 {
     _window.clear();
-    if (_scene == MENU || _scene == GAME)
+    if (_scene == MENU)
         _parallax.draw(_window);
     // if (_scene == MENU)
     //     _menu.draw(_window);

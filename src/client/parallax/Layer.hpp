@@ -9,7 +9,7 @@
 #ifndef LAYER_HPP_
 #define LAYER_HPP_
 
-#include "../common/Entity.hpp"
+#include "../Entity/Entity.hpp"
 
 class Layer : public Entity {
     public:
