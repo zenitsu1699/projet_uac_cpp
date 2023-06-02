@@ -15,7 +15,7 @@
 
 #include "../parallax/Parallax.hpp"
 // #include "Game.hpp"
-// #include "Menu.hpp"
+#include "../menu/Menu.hpp"
 #include "../../tools/ProjectException.hpp"
 
 class Window {
@@ -43,11 +43,12 @@ class Window {
         void draw();
         // void readTcp();
         // void readUdp();
+        // void switchScene();
 
         sf::RenderWindow _window;
         sf::Event _event;
         Parallax _parallax;
-        // Menu _menu;
+        Menu _menu;
         // Game _game;
         Scene _scene;
         bool _lostConnection;
@@ -58,8 +59,8 @@ class Window {
         // asio::ip::tcp::resolver *_resolver;
         // asio::ip::tcp::socket *_tcpSocket;
         // asio::ip::udp::socket *_udpSocket;
-        // char _tcpBuf[1024];
-        // char _udpBuf[1024];
+        char _tcpBuf[1024];
+        char _udpBuf[1024];
         // asio::error_code _tcpError;
         // asio::error_code _udpError;
         // asio::ip::tcp::endpoint _tcpEndpoint;

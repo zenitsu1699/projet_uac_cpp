@@ -19,7 +19,7 @@ Window::Window(const std::string &title)
     // _udpSocket = new asio::ip::udp::socket(_io_context);
 
     _parallax.create(100);
-    // _menu.create(_window, _tcpBuf, _udpBuf);
+    _menu.create(_window, _tcpBuf, _udpBuf);
     _scene = MENU;
 
     _lostConnection = false;
@@ -44,21 +44,32 @@ void Window::event()
 {
     if (_event.type == sf::Event::Closed)
         _closeGame = true;
-    // if (_scene == MENU) {
-    //     //_parallax.event(_event);
-        // _menu.event(_event, _window, _tcpEndpoint, *_tcpSocket, *_udpSocket);
-    // }
+    if (_scene == MENU) {
+        //_parallax.event(_event);
+        _menu.event(_event, _window);
+    }
 }
+
+// void Window::switchScene()
+// {
+//     if (std::strlen(_udpBuf) > 3 && std::strncmp(_udpBuf, "006", 3) == 0) {
+//         _scene = GAME;
+//         std::vector<bool> direction = {1, 0, 0, 0};
+//         _parallax.setDirection(direction);
+//         std::memset(_udpBuf, '\0', 1024);
+//     }
+// }
 
 void Window::update()
 {
+    // switchScene();
     if (_scene == MENU) {
         _parallax.update();
-        // _menu.update(_window, _udpEndpoint, *_udpSocket, _scene);
-        // if (_scene == MENU) {
-        //     _menu.startMusic();
-        //     _game.stopMusic();
-        // } else {
+        _menu.update(_window, _scene);
+        if (_scene == MENU) {
+            _menu.startMusic();
+            // _game.stopMusic();
+        } // else {
         //     _menu.stopMusic();
         //     _game.startMusic();
         // }
@@ -70,8 +81,8 @@ void Window::draw()
     _window.clear();
     if (_scene == MENU)
         _parallax.draw(_window);
-    // if (_scene == MENU)
-    //     _menu.draw(_window);
+    if (_scene == MENU)
+        _menu.draw(_window);
     // if (_scene == GAME) {
     //     _game.draw();
     // }
